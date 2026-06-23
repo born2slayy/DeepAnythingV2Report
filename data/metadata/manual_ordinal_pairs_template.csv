@@ -1,0 +1,17 @@
+image_path,category,pair_id,close_point_description,far_point_description,close_x,close_y,far_x,far_y,pred_close,pred_far,correct,notes
+data/own_photos/indoor/indoor_01_ceiling_lights.jpg,indoor,1,front hanging lamp,back ceiling/wall,,,,,,,,
+data/own_photos/glass_window/glass_01_handheld_clear_cup.jpg,glass_window,1,hand or lower glass,plain wall behind,,,,,,,,
+data/own_photos/glass_window/glass_02_table_cup_chair.jpg,glass_window,1,glass rim or table edge,back wall,,,,,,,,
+data/own_photos/plain_wall/plain_wall_01_wall_corner.jpg,plain_wall,1,visible chair edge or lower foreground,flat wall region,,,,,,,,
+data/own_photos/plain_wall/plain_wall_02_study_room_wall.jpg,plain_wall,1,front plain wall,side room interior,,,,,,,,
+data/own_photos/indoor/indoor_02_kitchen_wide.jpg,indoor,1,front metal counter,background tables/wall,,,,,,,,
+data/own_photos/shiny_metal/shiny_metal_01_kitchen_counter.jpg,shiny_metal,1,front glass or counter edge,background wall/person,,,,,,,,
+data/own_photos/very_close_object/very_close_01_glass_on_metal_table.jpg,very_close_object,1,close glass,background person/wall,,,,,,,,
+data/own_photos/shiny_metal/shiny_metal_02_reflective_counter_cup.jpg,shiny_metal,1,small front glass,distant vending machine or wall,,,,,,,,
+data/own_photos/outdoor/outdoor_01_street_buildings.jpg,outdoor,1,near tree or parked car,distant building/sidewalk end,,,,,,,,
+data/own_photos/mirror/mirror_01_bathroom_selfie.jpg,mirror,1,mirror/tile plane,reflected person/background,,,,,,,,
+data/own_photos/very_close_object/very_close_02_hand_object_car_window.jpg,very_close_object,1,handheld object,outdoor building/road,,,,,,,,
+data/own_photos/outdoor/outdoor_02_cafe_drinks_street.jpg,outdoor,1,foreground drink,distant building/street,,,,,,,,
+data/own_photos/glass_window/glass_03_balcony_glass_city.jpg,glass_window,1,person or balcony frame,distant city buildings,,,,,,,,
+data/own_photos/glass_window/glass_04_window_cup_vase.jpg,glass_window,1,foreground cup or vase,outside street/building,,,,,,,,
+
