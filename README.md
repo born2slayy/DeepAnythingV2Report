@@ -55,3 +55,22 @@ results/
   tables/
 ```
 
+## Selected delivered experiment results
+
+The team also ran Depth Anything V2 with three model variants:
+
+| Model | Encoder |
+|---|---|
+| Small | `vits` |
+| Base | `vitb` |
+| Large | `vitl` |
+
+The full generated result package is large, so this repository keeps only the files needed for the report:
+
+- `src/run_depth_experiments.py`: script used to run inference.
+- `results/tables/results.csv`: per-image and per-model inference statistics.
+- `results/tables/summary_by_model.csv`: averaged runtime summary.
+- `report/figures/selected_examples/`: compressed representative side-by-side examples.
+- `report/figures/model_comparison/`: compact figures for model and runtime comparison.
+
+The full raw output archive should be kept separately for final submission if needed.

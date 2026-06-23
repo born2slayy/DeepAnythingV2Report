@@ -1,0 +1,4 @@
+model,encoder,device,runs,avg_inference_time_sec,avg_depth_std,avg_depth_range
+Base,vitb,cuda,28,0.236437,3.443003,13.183210
+Large,vitl,cuda,28,0.424743,134.690743,515.598509
+Small,vits,cuda,28,0.229098,1.755293,6.588750
