@@ -12,7 +12,8 @@
 \makeatother
 
 \title{\vspace{-1.2cm}Robustness Analysis of Monocular Depth Estimation with Depth Anything V2}
-\author{Deep Learning for Visual Computing - Assignment 3}
+\author{Hyeji Chang (12535756) \and Sakenov Assylbek (12552137)\\
+Deep Learning for Visual Computing - Assignment 3}
 \date{\vspace{-0.4cm}}
 
 \begin{document}
@@ -22,7 +23,7 @@
 
 \section{What did we do?}
 
-We experimented with monocular depth estimation, a computer vision task that predicts a dense depth map from a single RGB image. This is different from image classification or semantic segmentation because the model does not assign class labels; instead, it estimates the relative 3D structure of the scene.
+We experimented with monocular depth estimation, a computer vision task that predicts a dense depth map from a single RGB image. Unlike classification or segmentation, it estimates relative 3D structure using monocular cues such as perspective, occlusion, texture gradients, shading, and relative object size.
 
 We used Depth Anything V2, an open-source pretrained model for monocular depth estimation. Our goal was not to train a new model, but to study how a strong pretrained model behaves on realistic photos and on challenging visual cases. We built a small custom dataset from our own photos and teammate photos. The images were organized into eight categories: indoor, outdoor, mirror, glass/window, shiny metal, plain wall, very close object, and dark image. These categories were chosen because they contain common failure cases for monocular depth estimation, such as reflections, transparency, weak texture, low illumination, and extreme foreground objects.
 
@@ -36,7 +37,7 @@ We downloaded the open-source implementation of Depth Anything V2 from the offic
 \url{https://github.com/DepthAnything/Depth-Anything-V2}
 \end{center}
 
-We did not modify the model architecture, pretrained checkpoints, or inference method. We chose V2 instead of V1 or V3 because V2 is a mature and widely used release with stable open-source code, pretrained checkpoints, and strong practical reproducibility. V1 is older, while V3 was newer and less established for our goal. Since the assignment emphasizes a reliable open-source experiment within limited time, V2 was the safest choice.
+We did not modify the model architecture, pretrained checkpoints, or inference method. We chose V2 instead of V1 or V3 because V2 is a mature and widely used release with stable open-source code, pretrained checkpoints, and strong practical reproducibility. V1 is older, while V3 was newer and less established for our goal. Depth Anything V2 also provides multiple ViT encoder variants, which made it convenient to compare Small, Base, and Large models.
 
 Our changes were limited to experiment automation and dataset organization:
 
@@ -55,7 +56,7 @@ First, our own photos do not have ground-truth metric depth. Therefore, we canno
 
 Second, Depth Anything V2 outputs relative depth. The absolute numerical scale of the depth maps is not directly comparable between model variants. For this reason, we used the depth statistics only as descriptive information and used runtime as the main quantitative comparison.
 
-Third, some low-light images were originally placed in the teammate's photo folder rather than in a separate \texttt{dark\_image} folder. We fixed this during dataset organization by labeling these images as dark/low-light examples in the metadata and analyzing them as part of the dark image category.
+Third, some low-light images were originally placed in the teammate's photo folder rather than in a separate \texttt{dark\_image} folder. We fixed this during dataset organization by labeling these images as dark/low-light examples in the metadata and analyzing them as part of the dark image category. The exact GPU model and library versions were not included in the delivered log, so we report only the recorded environment details: CUDA inference, PyTorch-based model code, OpenCV image loading, and input size 518.
 
 \section{Tests and results}
 
@@ -104,6 +105,23 @@ Large & \texttt{vitl} & 0.425 \\
 \label{fig:quantitative}
 \end{figure}
 
+We also computed a Small-Large prediction disagreement score. Each saved depth-map visualization was converted to grayscale, normalized to [0,1], and compared with mean squared error. This is not an accuracy metric because there is no ground-truth depth; it only measures how much two model variants disagree on the same input. The highest disagreement appeared in plain wall and dark image cases, where weak texture or low illumination makes monocular depth cues less reliable.
+
+\begin{table}[htbp]
+\centering
+\caption{Small-Large normalized prediction disagreement.}
+\begin{tabular}{lrlr}
+\toprule
+Category & MSE & Category & MSE \\
+\midrule
+dark image & 0.0085 & glass/window & 0.0063 \\
+indoor & 0.0050 & mirror & 0.0047 \\
+outdoor & 0.0024 & plain wall & 0.0160 \\
+shiny metal & 0.0053 & very close object & 0.0026 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Qualitative category analysis}
 
 Figure~\ref{fig:success} shows representative cases where the model produced plausible relative depth. Indoor and outdoor scenes were generally stable when the image contained perspective cues, object boundaries, and multiple visible depth layers. Very close foreground objects were usually detected as near, although they sometimes dominated the depth map.
@@ -115,12 +133,12 @@ Figure~\ref{fig:success} shows representative cases where the model produced pla
 \label{fig:success}
 \end{figure}
 
-Figure~\ref{fig:challenging} shows more difficult cases. Mirrors can be interpreted as real 3D space, glass/window scenes mix a transparent surface with objects behind it, shiny metal creates misleading reflections, plain walls provide weak texture, and dark images reduce visible boundaries.
+Figure~\ref{fig:challenging} shows more difficult cases. Mirrors can be interpreted as real 3D space, glass/window scenes mix a transparent surface with objects behind it, shiny metal creates misleading specular reflections, plain walls violate the texture-rich cues often available on Lambertian surfaces, and dark images reduce visible boundaries.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.88\linewidth]{figures/qualitative_challenging_cases.jpg}
-\caption{Challenging examples: mirror reflection, glass/window ambiguity, shiny metal reflection, low-light image, and plain wall.}
+\caption{Challenging examples: mirror reflection, glass/window ambiguity, shiny metal reflection, low-light image, and plain wall. Red boxes mark ambiguous regions.}
 \label{fig:challenging}
 \end{figure}
 
@@ -128,7 +146,7 @@ Figure~\ref{fig:challenging} shows more difficult cases. Mirrors can be interpre
 
 Overall, Depth Anything V2 produced visually plausible depth maps for many real-world scenes. The model was especially convincing when scenes contained strong perspective lines, foreground/background separation, and recognizable objects. The runtime comparison also showed that Small and Base were efficient, while Large was noticeably slower.
 
-The most interesting failures appeared in images where monocular cues are physically ambiguous. Mirrors and transparent surfaces do not correspond cleanly to a single visible surface. Reflections on metal tables and glass can appear as real geometry. Plain walls and low-light images remove texture and edges, which are important cues for estimating depth from a single image. These results match the expected limitations of monocular depth estimation: the model can infer likely 3D structure from learned visual patterns, but it cannot directly observe true geometry.
+The most interesting failures appeared where monocular cues are physically ambiguous. Mirrors and transparent surfaces do not correspond cleanly to a single visible surface. Reflections on metal tables and glass can appear as real geometry, unlike mostly Lambertian surfaces. Plain walls and low-light images remove texture and edges. These results match the expected limitations of monocular depth estimation: the model can infer likely 3D structure from learned visual patterns, but it cannot directly observe true geometry.
 
 The main limitation of our experiment is the lack of ground-truth depth. Therefore, our results should be interpreted as qualitative robustness analysis and runtime comparison, not as a benchmark of metric accuracy. A stronger future experiment would add an ordinal depth test with manually selected close/far point pairs, or use a benchmark dataset with annotated depth relations.
 
