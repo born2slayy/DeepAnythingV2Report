@@ -14,4 +14,6 @@ data/own_photos/very_close_object/very_close_02_hand_object_car_window.jpg,very_
 data/own_photos/outdoor/outdoor_02_cafe_drinks_street.jpg,outdoor,1,foreground drink,distant building/street,,,,,,,,
 data/own_photos/glass_window/glass_03_balcony_glass_city.jpg,glass_window,1,person or balcony frame,distant city buildings,,,,,,,,
 data/own_photos/glass_window/glass_04_window_cup_vase.jpg,glass_window,1,foreground cup or vase,outside street/building,,,,,,,,
-
+data/own_photos/dark_image/dark_01_dim_bedroom.jpeg,dark_image,1,front bed edge or object,back wall corner,,,,,,,,
+data/own_photos/dark_image/dark_02_dim_stairwell.jpg,dark_image,1,near floor/wall edge,deeper stairwell corner,,,,,,,,
+data/own_photos/dark_image/dark_03_dim_wall_corner.jpg,dark_image,1,dark floor object,back wall corner,,,,,,,,

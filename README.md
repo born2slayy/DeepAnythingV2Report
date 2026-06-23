@@ -29,7 +29,7 @@ Current status:
 | Shiny Metal | ready |
 | Plain Wall | ready |
 | Very Close Object | ready |
-| Dark Image | still needs additional photos |
+| Dark Image | ready |
 
 ## Planned experiment
 
@@ -74,3 +74,5 @@ The full generated result package is large, so this repository keeps only the fi
 - `report/figures/model_comparison/`: compact figures for model and runtime comparison.
 
 The full raw output archive should be kept separately for final submission if needed.
+
+The dark image category uses low-light examples from the teammate's `asaken` photo folder in the delivered package.
